@@ -26,8 +26,8 @@ function addWater(accessToken, evt) {
     console.log(JSON.stringify(res))
     if(res.errors){
       res.errors.forEach(error => {
-        if (error.errorType === "invalid_token") {
-          status = {status: "invalid_token"}
+        if (error.errorType) {
+          status = {status: error.errorType}
         }
       })
     }

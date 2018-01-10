@@ -37,7 +37,7 @@ peerSocket.onopen = () => {
       setTimeout(()=>{statusIcon.href = "images/save-press.png"}, 1500)
       modal.animate("disable")
       setTimeout(()=>{statusIcon.href = "images/loading.png"}, 2500)
-    } else if (evt.data.status === "invalid_token"){
+    } else if (evt.data.status === "invalid_token" || evt.data.status === "expired_token"){
       clearTimeout(timeout)
       modalText1.text = "Please login"
       modalText2.text = "in app settings"
