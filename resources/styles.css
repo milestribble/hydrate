@@ -1,0 +1,11 @@
+svg {
+  viewport-fill: black;
+}
+
+text {
+  font-family: System-Regular;
+  font-size: 100;
+  fill: white;
+  text-anchor: middle;
+  viewport-fill: #4C5C6A;
+}

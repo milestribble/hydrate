@@ -1,0 +1,17 @@
+{
+  "fitbit": {
+    "appUUID": "bdee2fd4-784a-4153-ae1e-7b2bab406061",
+    "appType": "app",
+    "appDisplayName": "Water Tracker",
+    "iconFile": "resources/icon.png",
+    "wipeColor": "#00bcd4",
+    "requestedPermissions": [
+      "access_internet"
+    ],
+    "i18n": {
+      "en": {
+        "name": "Water Tracker"
+      }
+    }
+  }
+}
