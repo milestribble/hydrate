@@ -3,17 +3,20 @@ function mySettings(props) {
     <Page>
       <Section
         title={<Text bold align="center">Fitbit Account</Text>}>
-        <Oauth
-          settingsKey="oauth"
-          title="Login"
-          label="Fitbit"
-          status="Login"
-          authorizeUrl="https://www.fitbit.com/oauth2/authorize"
-          requestTokenUrl="https://api.fitbit.com/oauth2/token"
-          clientId= // CLIENT ID GOES HERE
-          clientSecret= // CLIENT SECRET GOES HERE
-          scope="nutrition"
-        />
+        <Webconfig
+            settingsKey="user"
+            label="Login"
+            disabled={false}
+            showError={true}
+            constructUrl={(returnUrl, callbackUrl) => {
+              return "https://fitbit-auth.herokuapp.com/oauth?redirect_uri=" + callbackUrl;
+            }}
+            onReturn={(queryString) => {
+              console.log("Returned " + queryString);
+              props.settingsStorage.setItem('user',queryString.split('=')[1])
+              return queryString.split('=')[1]
+            }}
+          />
       </Section>
       <Section title={<Text bold align="center">Default volume</Text>}>
         <TextInput
