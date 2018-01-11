@@ -27,7 +27,7 @@ peerSocket.onopen = () => {
   
   peerSocket.onmessage = (evt) => {
     if(evt.data.volume){
-      volume = parseInt(evt.data.volume)
+      volume = parseInt(evt.data.volume) 
       renderVolume()
     }
     if(evt.data.status === "success"){
@@ -58,7 +58,9 @@ btnAddVol.onactivate = () => {
 
 btnMinusVol.onactivate = () => {
   vibration.start("bump")
-  volume -=1
+  if (volume > 0){
+    volume -=1
+  }
   renderVolume()
 }
 

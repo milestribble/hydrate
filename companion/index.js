@@ -3,6 +3,7 @@ import { settingsStorage } from "settings";
 
 console.log("Companion Started");
 let accessToken
+getAccessToken(settingsStorage.getItem("user"))
 
 function addWater(accessToken, evt) {
   console.log(`accessToken: ${accessToken}`)
@@ -46,11 +47,8 @@ function addWater(accessToken, evt) {
 
 settingsStorage.onchange = evt => {
   console.log("settings change: ", evt.key)
-  if (evt.key === "oauth") {
-    let data = JSON.parse(evt.newValue);
-    console.log("data: ", JSON.stringify(data))
-    accessToken = data.access_token
-    console.log(`updated accessToken: ${accessToken}`)
+  if (evt.key === "user") {
+    getAccessToken(settingsStorage.getItem("user"))
   } 
   if (evt.key === 'volume') {
     if (peerSocket.readyState === peerSocket.OPEN) {
@@ -80,11 +78,19 @@ peerSocket.onopen = () => {
   if (volumeData) {
     peerSocket.send({"volume": parseInt(volumeData.name)})
   }
-  
-  accessToken = restoreSettings()
+ 
   peerSocket.onmessage = (evt) => {
     console.log("socket message received")
     addWater(accessToken, evt)
   } 
+}
+
+function getAccessToken(userId) {
+  fetch(`https://fitbit-auth.herokuapp.com/access/${userId}`)
+    .then(res => res.text())
+    .then(res => {
+      accessToken = res
+      console.log(`accessToken: ${accessToken}`)
+  })
 }
 
